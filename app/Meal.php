@@ -24,4 +24,11 @@ class Meal extends Model
     public function ingredients() {
         return $this->belongsToMany(Ingredient::class);
     }
+
+    public function status() {
+        if ($this->deleted_at) {
+            return 'deleted';
+        }
+        return $this->created_at == $this->updated_at ? 'created' : 'modified';
+    }
 }
