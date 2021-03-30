@@ -15,7 +15,14 @@ class CreateMealTagTable extends Migration
     {
         Schema::create('meal_tag', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedBigInteger('meal_id');
+            $table->unsignedBigInteger('tag_id');
             $table->timestamps();
+
+            $table->unique(['meal_id', 'tag_id']);
+
+            $table->foreign('meal_id')->references('id')->on('meals')->onDelete('cascade');
+            $table->foreign('tag_id')->references('id')->on('tags')->onDelete('cascade');
         });
     }
 
