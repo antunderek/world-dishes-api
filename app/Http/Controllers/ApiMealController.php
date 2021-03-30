@@ -17,6 +17,7 @@ class ApiMealController extends Controller
      */
     public function index(Request $request)
     {
+        $this->validateRequest($request);
         $this->setLanguage($request->lang);
 
         $diffTimeDateTime = null;
@@ -35,6 +36,20 @@ class ApiMealController extends Controller
         return new \App\Http\Resources\MealCollection($meals);
     }
 
+
+    private function validateRequest(Request $request) {
+        $request->validate([
+            'per_page' => 'integer',
+            'tags' => 'regex:/^\d+(,\s*\d+\s*)*$/',
+            'lang' => 'required|string|min:2|max:5',
+            'with' => 'string',
+            'diff_time' => 'integer|regex:/^\s*[1-9]\d*\s*$/',
+            'category' => array('regex:/^(\s*|\s*\d+\s*|NULL|!NULL)$/i'),
+            'page' => 'integer',
+        ]);
+    }
+
+
     private function setLanguage(string $language) {
         if (!$this->checkLanguageExists($language)) {
             abort(406, 'Language is not supported');
@@ -49,6 +64,7 @@ class ApiMealController extends Controller
         }
         return true;
     }
+
 
     private function tagsToNumberArray(string $tags) {
         return array_map('intval', (explode(',', $tags)));
