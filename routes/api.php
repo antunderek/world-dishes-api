@@ -13,4 +13,4 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('meal', 'ApiMealController@index')->name('meal.index');
+Route::get('meals', 'ApiMealController@index')->name('meal.index');

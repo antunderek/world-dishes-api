@@ -18,10 +18,17 @@ class Meal extends Model
     }
 
     public function tags() {
-        return $this->belongsToMany(Tag::class);
+        return $this->belongsToMany(Tag::class)->using(MealTag::class);
     }
 
     public function ingredients() {
-        return $this->belongsToMany(Ingredient::class);
+        return $this->belongsToMany(Ingredient::class)->using(IngredientTag::class);
+    }
+
+    public function status() {
+        if ($this->deleted_at) {
+            return 'deleted';
+        }
+        return $this->created_at == $this->updated_at ? 'created' : 'modified';
     }
 }
