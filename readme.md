@@ -31,6 +31,7 @@ Deleting events on pivot models `MealTag, TagIngredient`. Triggers on detach.
 `ApiMealController` - contains `index` function that returns requested data.
 
 #### Route
+Declared in `api.php`<br>
 `meals.index` - connected with `ApiMealController` uses function `index`.
 
 #### Factories
@@ -39,3 +40,6 @@ Deleting events on pivot models `MealTag, TagIngredient`. Triggers on detach.
 
 #### Seeder
 `LanguageSeeder` - seeds languages table with language and locale.
+
+#### Example
+`/api/meals?lang=en&diff_time=1493902343&category=null&with=category`
