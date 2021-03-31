@@ -6,6 +6,7 @@ use App\Language;
 use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
+use Validator;
 
 class ApiMealController extends Controller
 {
@@ -17,7 +18,14 @@ class ApiMealController extends Controller
      */
     public function index(Request $request)
     {
-        $this->validateRequest($request);
+        $validation = $this->validateRequest($request);
+        if ($validation->fails()) {
+            return response()->json(['message' => 'Passed data not valid'], 400);
+        }
+
+        if (!$this->checkLanguageExists($request->lang)) {
+            return response()->json(['message' => 'Language is not supported'], 406);
+        }
         $this->setLanguage($request->lang);
 
         $diffTimeDateTime = null;
@@ -38,7 +46,7 @@ class ApiMealController extends Controller
 
 
     private function validateRequest(Request $request) {
-        $request->validate([
+        $validation = Validator::make($request->all(), [
             'per_page' => 'integer',
             'tags' => 'regex:/^\d+(,\s*\d+\s*)*$/',
             'lang' => 'required|string|min:2|max:5',
@@ -47,12 +55,14 @@ class ApiMealController extends Controller
             'category' => array('regex:/^(\s*|\s*\d+\s*|NULL|!NULL)$/i'),
             'page' => 'integer',
         ]);
+
+        return $validation;
     }
 
 
     private function setLanguage(string $language) {
         if (!$this->checkLanguageExists($language)) {
-            abort(406, 'Language is not supported');
+
             return;
         }
         App::setLocale($language);
