@@ -9,7 +9,7 @@ Simple api that only gets a collection of requested data.
 [`Astrotomic/laravel-translatable`](https://github.com/Astrotomic/laravel-translatable): Laravel package for translatable models<br>
 
 #### Database
-![Database diagram](https://github.com/antunderek/world-dishes-api/database_diagram.png)
+![Database diagram](https://github.com/antunderek/world-dishes-api/master/database_diagram.png)
 
 #### Models
 Models: `Category, Tag, Ingredient, Meal, Language`<br>
