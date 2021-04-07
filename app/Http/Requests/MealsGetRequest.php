@@ -6,6 +6,7 @@ use App\Rules\CategoryRegexRule;
 use App\Rules\DiffTimeRegexRule;
 use App\Rules\LanguageExistsRule;
 use App\Rules\TagsRegexRule;
+use App\Rules\WithAllowedRule;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
@@ -35,7 +36,7 @@ class MealsGetRequest extends FormRequest
             'per_page' => 'integer',
             'tags' => new TagsRegexRule(),
             'lang' => ['required', 'string', 'min:2', new LanguageExistsRule()],
-            'with' => 'string',
+            'with' => ['string', new WithAllowedRule()],
             'diff_time' => ['integer', new DiffTimeRegexRule()],
             'category' => new CategoryRegexRule(),
             'page' => 'integer',

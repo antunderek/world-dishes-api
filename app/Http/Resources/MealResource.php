@@ -20,7 +20,6 @@ class MealResource extends JsonResource
             $with = $this->getWithAsArray($request->with);
         }
         DB::connection()->enableQueryLog();
-
         $ar = [
             'id' => $this->id,
             'name' => $this->name,
@@ -30,8 +29,9 @@ class MealResource extends JsonResource
             'tags' => $this->when(in_array('tags', $with), TagResource::collection($this->tags)),
             'ingredients' => $this->when(in_array('ingredients', $with), IngredientResource::collection($this->ingredients)),
         ];
+        //$this->resource->with('tags');
         $queries = DB::getQueryLog();
-        dd($queries);
+        //dd($queries);
         return $ar;
     }
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\MealsGetRequest;
 use App\Language;
+use App\Meal;
 use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
@@ -29,16 +30,34 @@ class ApiMealController extends Controller
         if ($request->has('tags')) {
             $tags = $this->tagsToNumberArray($request->tags);
         }
+
+
+        //$meals = $this->queryGetPaginatedMeals($request, $tags, $diffTimeDateTime);
         DB::connection()->enableQueryLog();
+        $meals = Meal::with(
+            'translations',
+            'category',
+            'category.translations',
+            'ingredients',
+            'ingredients.translations',
+            'tags',
+            'tags.translations'
+        )->filterBy(request()->all());
 
-        $meals = $this->queryGetPaginatedMeals($request, $tags, $diffTimeDateTime);
-
-        $queries = DB::getQueryLog();
-        //dd($queries);
-
+        if ($request->has('per_page')) {
+            $meals = $meals->paginate($request->per_page);
+        } else {
+            $meals = $meals->paginate(\App\Meal::withTrashed()->max('id'));
+        }
         $this->appendRequestDataToLinks($meals);
 
-        return new \App\Http\Resources\MealCollection($meals);
+
+        $som = new \App\Http\Resources\MealCollection($meals);
+        $queries = DB::getQueryLog();
+        return $som;
+        dd($queries);
+
+        //return new \App\Http\Resources\MealCollection($meals);
     }
 
     private function setLanguage(string $language)
