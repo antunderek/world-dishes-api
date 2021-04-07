@@ -7,7 +7,7 @@ use App\Language;
 use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
-use Validator;
+use Illuminate\Support\Facades\DB;
 
 class ApiMealController extends Controller
 {
@@ -19,15 +19,6 @@ class ApiMealController extends Controller
      */
     public function index(MealsGetRequest $request)
     {
-        /*$validation = $this->validateRequest($request);
-        if ($validation->fails()) {
-            return response()->json(['message' => 'Passed data not valid'], 400);
-        }
-
-        if (!$this->checkLanguageExists($request->lang)) {
-            return response()->json(['message' => 'Language is not supported'], 406);
-        }
-        */
         $this->setLanguage($request->lang);
 
         $diffTimeDateTime = null;
@@ -38,28 +29,16 @@ class ApiMealController extends Controller
         if ($request->has('tags')) {
             $tags = $this->tagsToNumberArray($request->tags);
         }
+        DB::connection()->enableQueryLog();
 
         $meals = $this->queryGetPaginatedMeals($request, $tags, $diffTimeDateTime);
+
+        $queries = DB::getQueryLog();
+        //dd($queries);
 
         $this->appendRequestDataToLinks($meals);
 
         return new \App\Http\Resources\MealCollection($meals);
-    }
-
-
-    private function validateRequest(Request $request)
-    {
-        $validation = Validator::make($request->all(), [
-            'per_page' => 'integer',
-            'tags' => 'regex:/^\d+(,\s*\d+\s*)*$/',
-            'lang' => 'required|string|min:2|max:5',
-            'with' => 'string',
-            'diff_time' => 'integer|regex:/^\s*[1-9]\d*\s*$/',
-            'category' => array('regex:/^(\s*|\s*\d+\s*|NULL|!NULL)$/i'),
-            'page' => 'integer',
-        ]);
-
-        return $validation;
     }
 
     private function setLanguage(string $language)
@@ -89,7 +68,15 @@ class ApiMealController extends Controller
 
     private function queryGetPaginatedMeals(Request $request, array $tags = null, DateTime $diffTime = null)
     {
-        $mealsQuery = \App\Meal::query();
+        $mealsQuery = \App\Meal::query()->with(
+            'translations',
+            'category',
+            'category.translations',
+            'ingredients',
+            'ingredients.translations',
+            'tags',
+            'tags.translations'
+        );
 
         $mealsQuery->when($request->diff_time, function ($query) use ($diffTime) {
             $query->withTrashed();

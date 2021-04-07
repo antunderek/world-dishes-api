@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\DB;
 
 class MealResource extends JsonResource
 {
@@ -18,8 +19,9 @@ class MealResource extends JsonResource
         if ($request->has('with')) {
             $with = $this->getWithAsArray($request->with);
         }
+        DB::connection()->enableQueryLog();
 
-        return [
+        $ar = [
             'id' => $this->id,
             'name' => $this->name,
             'description' => $this->description,
@@ -28,6 +30,9 @@ class MealResource extends JsonResource
             'tags' => $this->when(in_array('tags', $with), TagResource::collection($this->tags)),
             'ingredients' => $this->when(in_array('ingredients', $with), IngredientResource::collection($this->ingredients)),
         ];
+        $queries = DB::getQueryLog();
+        dd($queries);
+        return $ar;
     }
 
     private function getWithAsArray($with) {
