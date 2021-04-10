@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\MealsGetRequest;
-use App\Meal;
-use App\Utilities\CustomMealFilters;
+use App\Utilities\FilteredMealsCollection;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
 
@@ -21,17 +20,9 @@ class ApiMealController extends Controller
         $this->setLanguage($request->lang);
 
         DB::connection()->enableQueryLog();
-        $customFilters = new CustomMealFilters($request);
 
-        $meals = Meal::with('translations')->filterBy($customFilters->getFilters());
-
-        if ($request->has('per_page')) {
-            $meals = $meals->paginate($request->per_page);
-        } else {
-            $meals = $meals->paginate(\App\Meal::withTrashed()->max('id'));
-        }
-        $this->appendRequestDataToLinks($meals);
-
+        $meals = new FilteredMealsCollection($request);
+        return $meals->setup();
 
         //DB::connection()->enableQueryLog();
         $som = new \App\Http\Resources\MealCollection($meals);
@@ -44,10 +35,5 @@ class ApiMealController extends Controller
     private function setLanguage(string $language)
     {
         App::setLocale($language);
-    }
-
-    private function appendRequestDataToLinks($meals)
-    {
-        $meals->appends(request()->input())->links();
     }
 }
