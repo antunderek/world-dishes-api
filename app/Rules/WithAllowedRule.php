@@ -34,7 +34,7 @@ class WithAllowedRule implements Rule
             return false;
         }
         foreach ($withs as $with) {
-            if (!in_array(strtolower($with), $this->allowed)) {
+            if (!in_array($with, $this->allowed)) {
                 return false;
             }
         }

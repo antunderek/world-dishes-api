@@ -14,6 +14,8 @@ class Tags
     public function handle($value)
     {
         // prep tags value to number array (use separate class?)
+        $this->query->with('tags', 'tags.translations');
+
         $tags = array_map('intval', (explode(',', $value)));
         $this->query->whereHas('tags', function ($query) use ($tags) {
             $query->whereIn('tags.id', $tags);

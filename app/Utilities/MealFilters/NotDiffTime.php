@@ -2,7 +2,7 @@
 
 namespace App\Utilities\MealFilters;
 
-class PerPage
+class NotDiffTime
 {
     protected $query;
 
@@ -11,8 +11,8 @@ class PerPage
         $this->query = $query;
     }
 
-    public function handle($value)
+    public function handle()
     {
-        $this->query->paginate($value);
+        $this->query->whereColumn('created_at', 'updated_at');
     }
 }

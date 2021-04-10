@@ -2,7 +2,7 @@
 
 namespace App\Utilities;
 
-class FilterBuilder //interface
+class FilterBuilder
 {
     protected $query;
     protected $filters;
@@ -18,11 +18,11 @@ class FilterBuilder //interface
     public function apply()
     {
         foreach ($this->filters as $name => $value) {
-            $nam = array_map('ucfirst', explode('_', $value));
-            $normailizedName = implode($nam); // diff_time
+            $nam = array_map('ucfirst', explode('_', $name));
+            $normailizedName = implode($nam);
             $class = $this->namespace . "\\{$normailizedName}";
 
-            if (! class_exists($class)) {
+            if (!class_exists($class)) {
                 continue;
             }
 
