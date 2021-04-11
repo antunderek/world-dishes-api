@@ -38,7 +38,8 @@ class DatabaseSeeder extends Seeder
 
     }
 
-    private function attachTagsIngredients(Meal $meal) {
+    private function attachTagsIngredients(Meal $meal)
+    {
         $meal->tags()->attach(Tag::all()->pluck('id')->random(rand(1, 10)));
         $meal->ingredients()->attach(Ingredient::all()->pluck('id')->random(rand(1, 10)));
     }

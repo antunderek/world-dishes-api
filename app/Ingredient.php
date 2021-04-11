@@ -13,6 +13,6 @@ class Ingredient extends Model
 
     public function meals()
     {
-        return $this->belongsToMany(Meal::class)->using(IngredientTag::class);
+        return $this->belongsToMany(Meal::class)->using(IngredientMeal::class);
     }
 }

@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Relations\Pivot;
 
-class MealTag extends Pivot
+class IngredientMeal extends Pivot
 {
-    protected $table = 'meal_tag';
+    protected $table = 'ingredient_meal';
 }
