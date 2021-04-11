@@ -4,8 +4,9 @@ namespace App\Utilities;
 
 use App\Http\Resources\MealCollection;
 use App\Meal;
+use Illuminate\Support\Facades\App;
 
-class FilteredMealsCollection
+class PrepareMealIndex
 {
     protected $request;
 
@@ -16,6 +17,7 @@ class FilteredMealsCollection
 
     public function setup()
     {
+        App::setLocale($this->request->lang);
         $customFilters = new CustomMealFilters($this->request);
         $meals = Meal::with('translations')->filterBy($customFilters->getFilters());
         $paginator = new PaginateMeals($meals, $this->request);

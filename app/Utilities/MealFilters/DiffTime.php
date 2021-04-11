@@ -17,10 +17,6 @@ class DiffTime
     {
         $diffTimeDT = new DateTime("@$value");
         $this->query->withTrashed();
-        $this->query->where(function ($query) use ($diffTimeDT) {
-            $query->where('created_at', '>', $diffTimeDT)
-                ->orWhere('updated_at', '>', $diffTimeDT)
-                ->orWhere('deleted_at', '>', $diffTimeDT);
-        });
+        $this->query->where('created_at', '>', $diffTimeDT);
     }
 }
