@@ -19,8 +19,8 @@ class FilterBuilder
     {
         foreach ($this->filters as $name => $value) {
             $nam = array_map('ucfirst', explode('_', $name));
-            $normailizedName = implode($nam);
-            $class = $this->namespace . "\\{$normailizedName}";
+            $normalizedName = implode($nam);
+            $class = $this->namespace . "\\{$normalizedName}";
 
             if (!class_exists($class)) {
                 continue;

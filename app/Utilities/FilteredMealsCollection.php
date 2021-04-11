@@ -2,6 +2,7 @@
 
 namespace App\Utilities;
 
+use App\Http\Resources\MealCollection;
 use App\Meal;
 
 class FilteredMealsCollection
@@ -19,6 +20,6 @@ class FilteredMealsCollection
         $meals = Meal::with('translations')->filterBy($customFilters->getFilters());
         $paginator = new PaginateMeals($meals, $this->request);
         $meals = $paginator->paginateMealsIndex();
-        return new \App\Http\Resources\MealCollection($meals);
+        return new MealCollection($meals);
     }
 }

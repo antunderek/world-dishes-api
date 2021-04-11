@@ -9,7 +9,7 @@ class IngredientObserver
     /**
      * Handle the ingredient "deleting" event.
      *
-     * @param  \App\Ingredient  $ingredient
+     * @param \App\Ingredient $ingredient
      * @return void
      */
     public function deleting(Ingredient $ingredient)

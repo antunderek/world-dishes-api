@@ -7,6 +7,7 @@ use Illuminate\Contracts\Validation\Rule;
 class DiffTimeRegexRule implements Rule
 {
     private $pattern;
+
     /**
      * Create a new rule instance.
      *
@@ -20,8 +21,8 @@ class DiffTimeRegexRule implements Rule
     /**
      * Determine if the validation rule passes.
      *
-     * @param  string  $attribute
-     * @param  mixed  $value
+     * @param string $attribute
+     * @param mixed $value
      * @return bool
      */
     public function passes($attribute, $value)

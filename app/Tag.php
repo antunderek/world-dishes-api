@@ -11,7 +11,8 @@ class Tag extends Model
 
     public $translatedAttributes = ['title', 'lang_id'];
 
-    public function meals() {
+    public function meals()
+    {
         return $this->belongsToMany(Meal::class)->using(MealTag::class);
     }
 }

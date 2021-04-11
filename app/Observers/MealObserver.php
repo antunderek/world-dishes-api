@@ -9,15 +9,14 @@ class MealObserver
     /**
      * Handle the meal "updated" event.
      *
-     * @param  \App\Meal  $meal
+     * @param \App\Meal $meal
      * @return void
      */
     public function updated(Meal $meal)
     {
         if ($meal->tags->count() == 0 || $meal->ingredients()->count == 0) {
             $meal->forceDelete();
-        }
-        else if($meal->trashed()) {
+        } else if ($meal->trashed()) {
             $meal->restore();
         }
     }
@@ -25,7 +24,7 @@ class MealObserver
     /**
      * Handle the meal "restored" event.
      *
-     * @param  \App\Meal  $meal
+     * @param \App\Meal $meal
      * @return void
      */
     public function restored(Meal $meal)

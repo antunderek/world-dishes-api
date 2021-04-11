@@ -14,7 +14,7 @@ class With
     public function handle($value)
     {
         $items = array_map('trim', (explode(',', $value)));
-        foreach($items as $item) {
+        foreach ($items as $item) {
             $this->query->with($item, "{$item}.translations");
         }
     }

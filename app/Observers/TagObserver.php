@@ -9,7 +9,7 @@ class TagObserver
     /**
      * Handle the tag "deleting" event.
      *
-     * @param  \App\Tag  $tag
+     * @param \App\Tag $tag
      * @return void
      */
     public function deleting(Tag $tag)

@@ -9,6 +9,7 @@ class LanguageExistsRule implements Rule
 {
     private $supportedLanguages;
     private $supportedLanguagesString;
+
     /**
      * Create a new rule instance.
      *
@@ -23,8 +24,8 @@ class LanguageExistsRule implements Rule
     /**
      * Determine if the validation rule passes.
      *
-     * @param  string  $attribute
-     * @param  mixed  $value
+     * @param string $attribute
+     * @param mixed $value
      * @return bool
      */
     public function passes($attribute, $value)

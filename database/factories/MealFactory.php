@@ -11,7 +11,7 @@ $factory->define(Meal::class, function () {
     $languages = Language::all();
     $result = [];
 
-    foreach($languages as $language) {
+    foreach ($languages as $language) {
         $fakerProvider = "FakerRestaurant\Provider\\" . $language->locale . "\Restaurant";
         $faker = Faker::create();
         $faker->addProvider(new $fakerProvider($faker));
