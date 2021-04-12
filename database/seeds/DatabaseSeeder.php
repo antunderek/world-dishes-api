@@ -1,9 +1,11 @@
 <?php
 
-use App\Category;
-use App\Ingredient;
-use App\Meal;
-use App\Tag;
+use App\{
+    Category,
+    Ingredient,
+    Meal,
+    Tag
+};
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder

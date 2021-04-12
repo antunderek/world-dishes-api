@@ -16,7 +16,7 @@ class MealObserver
     {
         if ($meal->tags->count() == 0 || $meal->ingredients()->count == 0) {
             $meal->forceDelete();
-        } else if ($meal->trashed()) {
+        } elseif ($meal->trashed()) {
             $meal->restore();
         }
     }

@@ -2,8 +2,11 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\Language;
-use App\Meal;
+use App\{
+    Language,
+    Meal,
+    Category
+};
 use Carbon\Carbon;
 use Faker\Factory as Faker;
 
@@ -24,7 +27,7 @@ $factory->define(Meal::class, function () {
         $result = array_merge($result, $val);
     }
 
-    $category = ['category_id' => \App\Category::all()->pluck('id')->random()];
+    $category = ['category_id' => Category::all()->pluck('id')->random()];
     $result = array_merge($result, $category);
 
     return $result;

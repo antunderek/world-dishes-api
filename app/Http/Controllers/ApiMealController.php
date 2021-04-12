@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\MealsGetRequest;
 use App\Utilities\PrepareMealIndex;
-use Illuminate\Support\Facades\App;
 
 class ApiMealController extends Controller
 {

@@ -2,6 +2,8 @@
 
 namespace App\Utilities;
 
+use App\Meal;
+
 class PaginateMeals implements PaginateMealsInterface
 {
     protected $query;
@@ -18,7 +20,7 @@ class PaginateMeals implements PaginateMealsInterface
         if ($this->request->has('per_page')) {
             $meals = $this->query->paginate($this->request->per_page);
         } else {
-            $meals = $this->query->paginate(\App\Meal::withTrashed()->max('id'));
+            $meals = $this->query->paginate(Meal::withTrashed()->max('id'));
         }
         $this->appendRequestDataToLinks($meals);
         return $meals;
