@@ -15,6 +15,7 @@ class NotDiffTime implements FilterNoParametersInterface
 
     public function handle()
     {
+        // Only return data with status: 'created'
         $this->query->whereColumn('created_at', 'updated_at');
     }
 }
