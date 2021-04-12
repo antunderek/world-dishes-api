@@ -2,7 +2,9 @@
 
 namespace App\Utilities\MealFilters;
 
-class NotDiffTime
+use App\Utilities\FilterNoParametersInterface;
+
+class NotDiffTime implements FilterNoParametersInterface
 {
     protected $query;
 

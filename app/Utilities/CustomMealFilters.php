@@ -16,11 +16,11 @@ class CustomMealFilters
         return $this->filterNotDiffTime($this->requestArray);
     }
 
-    private function filterNotDiffTime($value)
+    private function filterNotDiffTime($requestArray)
     {
-        if (!array_key_exists('diff_time', $value)) {
-            return array_merge($value, ['NotDiffTime' => null]);
+        if (!array_key_exists('diff_time', $requestArray)) {
+            return array_merge($requestArray, ['NotDiffTime' => null]);
         }
-        return $value;
+        return $requestArray;
     }
 }

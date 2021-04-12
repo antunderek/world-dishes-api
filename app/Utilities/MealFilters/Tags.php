@@ -2,7 +2,9 @@
 
 namespace App\Utilities\MealFilters;
 
-class Tags
+use App\Utilities\FilterInterface;
+
+class Tags implements FilterInterface
 {
     protected $query;
 

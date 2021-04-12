@@ -2,9 +2,10 @@
 
 namespace App\Utilities\MealFilters;
 
+use App\Utilities\FilterInterface;
 use DateTime;
 
-class DiffTime
+class DiffTime implements FilterInterface
 {
     protected $query;
 

@@ -2,7 +2,7 @@
 
 namespace App\Utilities;
 
-class PaginateMeals
+class PaginateMeals implements PaginateMealsInterface
 {
     protected $query;
     protected $request;

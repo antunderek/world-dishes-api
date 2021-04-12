@@ -6,7 +6,7 @@ use App\Http\Resources\MealCollection;
 use App\Meal;
 use Illuminate\Support\Facades\App;
 
-class PrepareMealIndex
+class PrepareMealIndex implements PrepareMealIndexInterface
 {
     protected $request;
 

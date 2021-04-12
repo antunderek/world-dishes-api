@@ -2,11 +2,13 @@
 
 namespace App\Http\Requests;
 
-use App\Rules\CategoryRegexRule;
-use App\Rules\DiffTimeRegexRule;
-use App\Rules\LanguageExistsRule;
-use App\Rules\TagsRegexRule;
-use App\Rules\WithAllowedRule;
+use App\Rules\{
+    CategoryRegexRule,
+    DiffTimeRegexRule,
+    LanguageExistsRule,
+    TagsRegexRule,
+    WithAllowedRule
+};
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;

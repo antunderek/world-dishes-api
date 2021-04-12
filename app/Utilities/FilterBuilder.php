@@ -4,6 +4,7 @@ namespace App\Utilities;
 
 class FilterBuilder
 {
+    // solution from https://dev.to/stefant123/create-filters-in-laravel-with-oop-best-practices-pm9
     protected $query;
     protected $filters;
     protected $namespace;
