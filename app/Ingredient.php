@@ -11,7 +11,8 @@ class Ingredient extends Model
 
     public $translatedAttributes = ['title', 'lang_id'];
 
-    public function meals() {
-        return $this->belongsToMany(Meal::class)->using(IngredientTag::class);;
+    public function meals()
+    {
+        return $this->belongsToMany(Meal::class)->using(IngredientMeal::class);
     }
 }

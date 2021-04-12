@@ -9,7 +9,7 @@ class MealResource extends JsonResource
     /**
      * Transform the resource into an array.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return array
      */
     public function toArray($request)
@@ -18,7 +18,6 @@ class MealResource extends JsonResource
         if ($request->has('with')) {
             $with = $this->getWithAsArray($request->with);
         }
-
         return [
             'id' => $this->id,
             'name' => $this->name,
@@ -30,7 +29,8 @@ class MealResource extends JsonResource
         ];
     }
 
-    private function getWithAsArray($with) {
+    private function getWithAsArray($with)
+    {
         return array_map('trim', (explode(',', $with)));
     }
 }

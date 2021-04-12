@@ -2,8 +2,10 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\Ingredient;
-use App\Language;
+use App\{
+    Ingredient,
+    Language
+};
 use Faker\Factory as Faker;
 use Illuminate\Support\Str;
 
